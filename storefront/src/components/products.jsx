@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { addToCart } from '../store/cart';
 
 function Products(props) {
   const useStyles = makeStyles({
@@ -43,18 +44,10 @@ function Products(props) {
 
       <div>
         {props.productList.products.map((product, idx) => (
-          <Card  className={classes.card}>
+          <Card className={classes.card}>
             <CardActionArea key={idx}>
-              <CardMedia
-               
-                component="img"
-              
-                height="200"
-                image={product.imgUrl}
-               
-              />
+              <CardMedia component="img" height="200" image={product.imgUrl} />
               <CardContent>
-             
                 <Typography gutterBottom variant="h5" component="h2">
                   {product.name}
                 </Typography>
@@ -79,10 +72,24 @@ function Products(props) {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button  className={classes.buttonBar} size="small" color="primary">
-                ADD TO CART
-              </Button>
-              <Button className={classes.buttonBar}  size="small" color="primary">
+              {product.inventory ? (
+                <Button
+                  size="small"
+                  color="primary"
+                  className={classes.buttonBar}
+                  onClick={() => props.addToCart(product)}
+                >
+                  ADD TO CART
+                </Button>
+              ) : (
+                <p>OUT OF STOCK</p>
+              )}
+
+              <Button
+                className={classes.buttonBar}
+                size="small"
+                color="primary"
+              >
                 VIEW DETAILS
               </Button>
             </CardActions>
@@ -92,9 +99,10 @@ function Products(props) {
     </div>
   );
 }
-
 const mapStateToProps = (state) => ({
   productList: state.productsReducer,
   category: state.categoriesReducer,
 });
-export default connect(mapStateToProps)(Products);
+
+const mapDispatchToProps = { addToCart };
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

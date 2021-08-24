@@ -4,7 +4,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import { connect } from 'react-redux';
+import Cart from './cart';
+import { useSelector } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -20,9 +22,18 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: 'black',
   },
+  buttonBar: {
+    backgroundColor: '#fad2e1',
+    borderWidth: 2,
+    borderColor: '#cb997e',
+    borderStyle: 'solid',
+    margin:'400px',
+  
+  },
 }));
 
-export default function Header() {
+function Header(props) {
+  const cartItemsCount = useSelector((state) => state.cartReducer.length);
   const classes = useStyles();
 
   return (
@@ -32,9 +43,17 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             MY STORE
           </Typography>
-          <Button >CART(0)</Button>
+          <Button color="grey" className={classes.buttonBar}>
+            Cart ({cartItemsCount})
+            <Cart />
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+const mapStateToProps = (state) => ({
+  UserCart: state.cartReducer,
+});
+
+export default connect(mapStateToProps)(Header);
