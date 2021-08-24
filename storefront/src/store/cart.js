@@ -1,28 +1,15 @@
-let initialState = [];
+const initialState = [];
 
 export default function cartReducer(state = initialState, action) {
-  let { type, payload } = action;
-  console.log('payload', payload);
+  const { type, payload } = action;
+
   switch (type) {
     case 'ADD':
-      payload.count = 1;
-      if (payload.inventoryCount !== 0) {
+      if (payload.inStock !== 0) {
         return [...state, payload];
       } else {
         return state;
       }
-      if (!state.length) return [payload];
-      let added = false;
-      let cartItems = [...state];
-      cartItems = cartItems.map((item) => {
-        if (item.name === payload.name) {
-          added = true;
-          return { ...item, count: item.count + 1 };
-        }
-        return item;
-      });
-      if (!added) return [...cartItems, payload];
-      return cartItems;
 
     case 'REMOVE':
       let index = null;
@@ -42,10 +29,10 @@ export default function cartReducer(state = initialState, action) {
   }
 }
 
-export function addToCart(payload) {
+export function addToCart(product) {
   return {
     type: 'ADD',
-    payload,
+    payload: product,
   };
 }
 

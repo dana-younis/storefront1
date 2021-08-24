@@ -1,4 +1,4 @@
-let initialState = {
+const initialState = {
   products: [
     {
       count: 0,
@@ -97,57 +97,56 @@ let initialState = {
         'https://media.hatla2eestatic.com/uploads/car/2021/08/21/4156350/full_up_008c04d80d52c1422c4c101f8cedad98.jpg',
     },
   ],
+  activeProducts: [],
 };
 
-export default function productsReducer(state = initialState, action) {
-  let { type, payload } = action;
+export default function getItems(state = initialState, action) {
+  const { type, payload } = action;
 
   switch (type) {
-    case 'FILTER_PRODUCTS':
-      let products = initialState.products.filter(
-        (item) => item.category === payload
-      );
-      return { products };
-
-    case 'ALL_CATEGORIES':
-      return initialState;
-
-    case 'ADD':
-      // decrement inventory
-      console.log(state);
-      let productsAfterDecrement = state.products.map((product) => {
-        console.log(product.name);
-        if (product.name === payload.name) {
-          product = { ...product, inventory: product.inventory - 1 };
-          return product;
-        }
-        return product;
+    case 'CHANGE CATEGORY':
+      const activeCategory = state.products.filter((item) => {
+        return item.category === payload;
       });
-      return { products: productsAfterDecrement };
+      return {
+        products: state.products,
+        activeProducts: activeCategory,
+      };
 
-    case 'REMOVE':
-      let updateInventory = state.products.map((product) => {
-        if (product.name === payload.name) {
-          product.inventory = product.inventory + 1;
+    case 'DECREASE_INVENTORY':
+      const afterAdd = state.products.map((element) => {
+        if (element.name == payload.name && element.inStock > 0) {
+          element.inStock = element.inStock - 1;
         }
-        return product;
+
+        return element;
       });
-      return { ...state, products: updateInventory };
+      return {
+        products: afterAdd,
+        activeProducts: state.activeProducts,
+      };
+
+    case 'GET ':
+      return {
+        products: payload,
+        activeProducts: state.activeProducts,
+      };
 
     default:
       return state;
   }
 }
 
-export const filterProducts = (payload) => {
+export function getCategoryItems(name) {
   return {
-    type: 'FILTER_PRODUCTS',
-    payload,
+    type: 'CHANGE CATEGORY',
+    payload: name,
   };
-};
+}
 
-export const allCategories = () => {
+export function reduceInventory(product) {
   return {
-    type: 'ALL_CATEGORIES',
+    type: 'DECREASE_INVENTORY',
+    payload: product,
   };
-};
+}
