@@ -2,10 +2,15 @@ let initialState = [];
 
 export default function cartReducer(state = initialState, action) {
   let { type, payload } = action;
-   console.log('payload',payload)
+  console.log('payload', payload);
   switch (type) {
     case 'ADD':
       payload.count = 1;
+      if (payload.inventoryCount !== 0) {
+        return [...state, payload];
+      } else {
+        return state;
+      }
       if (!state.length) return [payload];
       let added = false;
       let cartItems = [...state];
@@ -37,19 +42,16 @@ export default function cartReducer(state = initialState, action) {
   }
 }
 
-
-
 export function addToCart(payload) {
   return {
     type: 'ADD',
-    payload
+    payload,
   };
 }
-
 
 export function remove(payload) {
   return {
     type: 'REMOVE',
-    payload
+    payload,
   };
-} 
+}
