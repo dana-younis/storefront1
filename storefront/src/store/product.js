@@ -99,67 +99,6 @@ let initialState = {
   ],
 };
 
-// export default function productsReducer(state = initialState, action) {
-//   let { type, payload } = action;
-
-//   switch (type) {
-//     case 'FILTER_PRODUCTS':
-//       let products = initialState.products.filter(
-//         (item) => item.category === payload
-//       );
-//       return { products };
-
-//       case 'ADD_TO_CART':
-//         // decrement inventory
-//         console.log(state);
-//         let productsAfterDecrement = state.products.map((product) => {
-//           console.log(product.name)
-//           if (product.name === payload.name) {
-         
-//               product = { ...product, inventory: product.inventory - 1 };
-//               return product;
-      
-          
-//           }
-//           return product;
-//     // case 'ALL_CATEGORIES':
-//     //   return initialState;
-
-//     // default:
-//     //   return state;
-  
-// });
-// return { products: productsAfterDecrement };
-
-
-// case "REMOVE_FROM_CART":
-//   let updateInventory = state.products.map((product) => {
-//     if (product.name === payload.name) {
-//       product.inventory = product.inventory +1;
-//     }
-//     return product;
-//   });
-//   return { ...state, products: updateInventory };
-
-
-// default:
-// return state;
-
-
-// }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
 export default function productsReducer(state = initialState, action) {
   let { type, payload } = action;
 
@@ -173,44 +112,32 @@ export default function productsReducer(state = initialState, action) {
     case 'ALL_CATEGORIES':
       return initialState;
 
-      case 'ADD_TO_CART':
-                // decrement inventory
-                console.log(state);
-                let productsAfterDecrement = state.products.map((product) => {
-                  console.log(product.name)
-                  if (product.name === payload.name) {
-                 
-                      product = { ...product, inventory: product.inventory - 1 };
-                      return product;
-              
-                  
-                  }
-                  return product;
-            // case 'ALL_CATEGORIES':
-            //   return initialState;
-        
-            // default:
-            //   return state;
-          
-        });
-        return { products: productsAfterDecrement };
-        
-        
-        case "REMOVE_FROM_CART":
-          let updateInventory = state.products.map((product) => {
-            if (product.name === payload.name) {
-              product.inventory = product.inventory +1;
-            }
-            return product;
-          });
-          return { ...state, products: updateInventory };
-        
-        
-        default:
-        return state;
+    case 'ADD':
+      // decrement inventory
+      console.log(state);
+      let productsAfterDecrement = state.products.map((product) => {
+        console.log(product.name);
+        if (product.name === payload.name) {
+          product = { ...product, inventory: product.inventory - 1 };
+          return product;
+        }
+        return product;
+      });
+      return { products: productsAfterDecrement };
+
+    case 'REMOVE':
+      let updateInventory = state.products.map((product) => {
+        if (product.name === payload.name) {
+          product.inventory = product.inventory + 1;
+        }
+        return product;
+      });
+      return { ...state, products: updateInventory };
+
+    default:
+      return state;
   }
 }
-
 
 export const filterProducts = (payload) => {
   return {
@@ -224,17 +151,3 @@ export const allCategories = () => {
     type: 'ALL_CATEGORIES',
   };
 };
-
-
-// export const filterProducts = (payload) => {
-//   return {
-//     type: 'FILTER_PRODUCTS',
-//     payload,
-//   };
-// };
-
-// export const allCategories = () => {
-//   return {
-//     type: 'ALL_CATEGORIES',
-//   };
-// };

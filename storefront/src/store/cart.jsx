@@ -4,7 +4,7 @@ export default function cartReducer(state = initialState, action) {
   let { type, payload } = action;
    console.log('payload',payload)
   switch (type) {
-    case 'ADD_TO_CART':
+    case 'ADD':
       payload.count = 1;
       if (!state.length) return [payload];
       let added = false;
@@ -19,7 +19,7 @@ export default function cartReducer(state = initialState, action) {
       if (!added) return [...cartItems, payload];
       return cartItems;
 
-    case 'REMOVE_FROM_CART':
+    case 'REMOVE':
       let index = null;
       let cartItemsAfterDecrement = state.map((item, idx) => {
         if (item.name === payload.name) {
@@ -37,3 +37,19 @@ export default function cartReducer(state = initialState, action) {
   }
 }
 
+
+
+export function addToCart(payload) {
+  return {
+    type: 'ADD',
+    payload
+  };
+}
+
+
+export function remove(payload) {
+  return {
+    type: 'REMOVE',
+    payload
+  };
+} 
