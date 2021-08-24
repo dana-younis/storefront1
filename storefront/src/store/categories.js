@@ -26,7 +26,7 @@ let initialState = {
 export default function categoriesReducer(state=initialState,action){
   const {payload,type} = action;
   switch(type){
-      case 'SELECT_CATEGORY':
+      case 'ACTIVE_CATEGORY':
           let modified={};
           state.categories.forEach(item=>{
               if(item.name === payload){
@@ -45,7 +45,7 @@ export default function categoriesReducer(state=initialState,action){
 
 export function activeCategory(name){
   return {
-      type:'SELECT_CATEGORY',
+      type:'ALL_CATEGORIES',
       payload:name
   }
 }

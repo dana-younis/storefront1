@@ -8,7 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import { addToCart } from "../store/actions";
+import { useDispatch } from "react-redux"
 function Products(props) {
   const useStyles = makeStyles({
     root: {
@@ -79,9 +80,10 @@ function Products(props) {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button  className={classes.buttonBar} size="small" color="primary">
-                ADD TO CART
-              </Button>
+            {product.inventory?( <Button size="small" color="primary"  onClick={() =>props.addToCart(product) }>
+        ADD TO CART
+        </Button>):(<p>OUT OF STOCK</p>)}
+       
               <Button className={classes.buttonBar}  size="small" color="primary">
                 VIEW DETAILS
               </Button>
@@ -92,9 +94,11 @@ function Products(props) {
     </div>
   );
 }
-
 const mapStateToProps = (state) => ({
   productList: state.productsReducer,
-  category: state.categoriesReducer,
+  category: state.categoriesReducer
 });
-export default connect(mapStateToProps)(Products);
+
+
+const mapDispatchToProps = { addToCart };
+export default connect( mapStateToProps,mapDispatchToProps)(Products);
