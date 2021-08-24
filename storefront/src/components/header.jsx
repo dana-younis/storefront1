@@ -22,12 +22,20 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: 'black',
   },
+  buttonBar: {
+    backgroundColor: '#fad2e1',
+    borderWidth: 2,
+    borderColor: '#cb997e',
+    borderStyle: 'solid',
+    margin:'400px',
+  
+  },
 }));
 
 function Header(props) {
   const cartItemsCount = useSelector((state) => state.cartReducer.length);
   const classes = useStyles();
-  console.log(props, 'propssssssss');
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -35,7 +43,7 @@ function Header(props) {
           <Typography variant="h6" className={classes.title}>
             MY STORE
           </Typography>
-          <Button color="grey">
+          <Button color="grey" className={classes.buttonBar}>
             Cart ({cartItemsCount})
             <Cart />
           </Button>
