@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {useEffect} from 'react';
-import { useDispatch } from 'react-redux';
+import { activeCategory } from '../store/categories';
 import { filterProducts } from '../store/product';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from '@material-ui/core/styles';
-import { activeCategory } from '../store/actions';
 
 const useStyles = makeStyles((theme) => ({
   buttonBar: {
@@ -22,15 +20,10 @@ const useStyles = makeStyles((theme) => ({
 function Categories(props) {
   const classes = useStyles();
   function changeCategory(category) {
-    // props.filterProducts(category);
-    // props.activeCategory(category);
+    props.filterProducts(category);
     props.activeCategory(category);
   }
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(activeCategory('ALL'));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+
 
 
   return (
@@ -57,5 +50,6 @@ const mapStateToProps = (state) => ({
   productList: state.productsReducer,
   category: state.categoriesReducer,
 });
-const mapDispatchToProps = { activeCategory};
+const mapDispatchToProps = { activeCategory, filterProducts };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);

@@ -8,8 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { addToCart } from "../store/actions";
-import { useDispatch } from "react-redux"
+import { addToCart } from '../store/actions';
+
 function Products(props) {
   const useStyles = makeStyles({
     root: {
@@ -44,18 +44,10 @@ function Products(props) {
 
       <div>
         {props.productList.products.map((product, idx) => (
-          <Card  className={classes.card}>
+          <Card className={classes.card}>
             <CardActionArea key={idx}>
-              <CardMedia
-               
-                component="img"
-              
-                height="200"
-                image={product.imgUrl}
-               
-              />
+              <CardMedia component="img" height="200" image={product.imgUrl} />
               <CardContent>
-             
                 <Typography gutterBottom variant="h5" component="h2">
                   {product.name}
                 </Typography>
@@ -80,11 +72,24 @@ function Products(props) {
               </CardContent>
             </CardActionArea>
             <CardActions>
-            {product.inventory?( <Button size="small" color="primary"  onClick={() =>props.addToCart(product) }>
-        ADD TO CART
-        </Button>):(<p>OUT OF STOCK</p>)}
-       
-              <Button className={classes.buttonBar}  size="small" color="primary">
+              {product.inventory ? (
+                <Button
+                  size="small"
+                  color="primary"
+                  className={classes.buttonBar}
+                  onClick={() => props.addToCart(product)}
+                >
+                  ADD TO CART
+                </Button>
+              ) : (
+                <p>OUT OF STOCK</p>
+              )}
+
+              <Button
+                className={classes.buttonBar}
+                size="small"
+                color="primary"
+              >
                 VIEW DETAILS
               </Button>
             </CardActions>
@@ -96,9 +101,8 @@ function Products(props) {
 }
 const mapStateToProps = (state) => ({
   productList: state.productsReducer,
-  category: state.categoriesReducer
+  category: state.categoriesReducer,
 });
 
-
 const mapDispatchToProps = { addToCart };
-export default connect( mapStateToProps,mapDispatchToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
