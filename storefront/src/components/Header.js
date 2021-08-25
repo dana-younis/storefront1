@@ -4,18 +4,16 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+
 import { connect } from 'react-redux';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
-import StorefrontIcon from '@material-ui/icons/Storefront';
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
     right: -3,
     top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
   },
 }))(Badge);
 
@@ -52,19 +50,10 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static" color="primary">
         <Toolbar className={classes.bar}>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <StorefrontIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             MY STORE
           </Typography>
           <IconButton
-            color="inherit"
             className={classes.buttonBar}
             onClick={() => {
               props.show();

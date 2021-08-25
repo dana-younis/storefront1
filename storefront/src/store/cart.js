@@ -15,7 +15,7 @@ export default function cartReducer(state = initialState, action) {
       let index = null;
       let cartItemsAfterDecrement = state.map((item, idx) => {
         if (item.name === payload.name) {
-          item = { ...item, count: item.count - 1 };
+          item = { ...item,  };
           if (item.count === 0) index = idx;
           return item;
         }
@@ -29,16 +29,4 @@ export default function cartReducer(state = initialState, action) {
   }
 }
 
-export function addToCart(product) {
-  return {
-    type: 'ADD',
-    payload: product,
-  };
-}
 
-export function remove(payload) {
-  return {
-    type: 'REMOVE',
-    payload,
-  };
-}

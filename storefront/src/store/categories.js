@@ -36,7 +36,7 @@ export default function categoriesReducer(state = initialState, action) {
     case 'RESET':
       return initialState;
 
-    case 'CHANGE CATEGORY':
+    case 'CHANGE_CATEGORY':
       let activeCategory = {};
 
       state.categories.forEach((item) => {
@@ -50,18 +50,5 @@ export default function categoriesReducer(state = initialState, action) {
       };
     default:
       return state;
-  }
-}
-
-export function changeActive(name) {
-  return {
-    type: 'CHANGE CATEGORY',
-    payload: name,
-  };
-}
-
-export const reset = () => {
-  return {
-    type: 'RESET'
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Button from '@material-ui/core/Link';
-import { changeActive } from '../store/categories';
+import { changeActive } from '../store/action';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRemoteData } from './thunk';
@@ -29,7 +29,6 @@ function Categories() {
   return (
     <>
       <Breadcrumbs
-       
         style={{ marginLeft: '2%', fontSize: '25px', marginTop: '1%' }}
       >
         {state.categories.map((element, idx) => {
@@ -49,11 +48,7 @@ function Categories() {
       <div style={{ marginLeft: '4%', fontSize: '35px', marginTop: '2%' }}>
         {state.activeCategory.displayName}
       </div>
-      <div
-       
-      >
-        {state.activeCategory.description}
-      </div>
+      <div>{state.activeCategory.description}</div>
     </>
   );
 }

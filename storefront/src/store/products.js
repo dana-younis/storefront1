@@ -104,7 +104,7 @@ export default function getItems(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case 'CHANGE CATEGORY':
+    case 'CHANGE_CATEGORY':
       const activeCategory = state.products.filter((item) => {
         return item.category === payload;
       });
@@ -113,7 +113,7 @@ export default function getItems(state = initialState, action) {
         activeProducts: activeCategory,
       };
 
-    case 'DECREASE_INVENTORY':
+    case 'reduce_inventot':
       const afterAdd = state.products.map((element) => {
         if (element.name == payload.name && element.inStock > 0) {
           element.inStock = element.inStock - 1;
@@ -135,18 +135,4 @@ export default function getItems(state = initialState, action) {
     default:
       return state;
   }
-}
-
-export function getCategoryItems(name) {
-  return {
-    type: 'CHANGE CATEGORY',
-    payload: name,
-  };
-}
-
-export function reduceInventory(product) {
-  return {
-    type: 'DECREASE_INVENTORY',
-    payload: product,
-  };
 }

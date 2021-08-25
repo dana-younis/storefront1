@@ -8,9 +8,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
-import { getCategoryItems } from '../store/products';
-import { addToCart } from '../store/cart';
-import { reduceInventory } from '../store/products';
+import { getCategoryItems } from '../store/action';
+import { addToCart } from '../store/action';
+import { reduceInventory } from '../store/action';
 
 const useStyles = makeStyles({
   root: {
@@ -88,7 +88,6 @@ function Products(props) {
                 onClick={() => {}}
                 className={classes.buttonBar}
                 size="small"
-         
               >
                 VIEW DETAILS
               </Button>
