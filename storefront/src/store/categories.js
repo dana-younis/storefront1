@@ -1,51 +1,54 @@
-let initialState = {
+const initialState = {
   categories: [
     {
-      normalizedName: 'FOOD',
-      displayName: 'FOOD',
-      description: 'Eat one of the best food',
+      name: 'food',
+
+      displayName: 'food',
     },
     {
-      normalizedName: 'CARS',
-      displayName: 'CARS',
-      description: 'the best cars',
+      name: 'shirts',
+
+      displayName: 'shirts',
     },
     {
-      normalizedName: 'ELECTRONICS',
-      displayName: 'ELECTRONICS',
-      description: 'Keep up to date !',
+      name: 'phones',
+
+      displayName: 'phones',
     },
-  
+    {
+      name: 'electronics',
+
+      displayName: 'electronics',
+    },
+    {
+      name: 'console',
+
+      displayName: 'console',
+    },
   ],
   activeCategory: {},
 };
 
+export default function categoriesReducer(state = initialState, action) {
+  const { payload, type } = action;
 
+  switch (type) {
+    case 'RESET':
+      return initialState;
 
+    case 'CHANGE_CATEGORY':
+      let activeCategory = {};
 
-export default function categoriesReducer(state=initialState,action){
-  const {payload,type} = action;
-  switch(type){
-      case 'SELECT_CATEGORY':
-          let modified={};
-          state.categories.forEach(item=>{
-              if(item.name === payload){
-                  modified=item;
-              }
-          });
-          return {
-              categories:state.categories,
-              activeCategory:modified
-          };
-      default:
-          return state;
-  }
-}
-
-
-export function activeCategory(name){
-  return {
-      type:'SELECT_CATEGORY',
-      payload:name
+      state.categories.forEach((item) => {
+        if (item.name === payload) {
+          activeCategory = item;
+        }
+      });
+      return {
+        categories: state.categories,
+        activeCategory: activeCategory,
+      };
+    default:
+      return state;
   }
 }
